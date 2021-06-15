@@ -2,26 +2,25 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type ItemType {
+type UserObj {
   id: ID!
-  title: String!
-  price: Int!
-  description: String!
+  name: String!
+  created_at: DateTime!
+  updated_at: DateTime!
 }
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type Query {
-  items: [ItemType!]!
+  users: [UserObj!]!
   hello: String!
 }
 
 type Mutation {
-  createItem(input: ItemInput!): ItemType!
-  updateItem(input: ItemInput!, id: String!): ItemType!
-  deleteItem(id: String!): ItemType!
-}
-
-input ItemInput {
-  title: String!
-  price: Int!
-  description: String!
+  createUser(name: String!): UserObj!
+  updateUser(name: String!, id: Float!): UserObj!
+  deleteUser(id: Float!): UserObj!
 }

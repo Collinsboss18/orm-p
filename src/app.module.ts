@@ -1,14 +1,25 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ItemsModule } from './items/items.module';
+import config from '../ormconfig';
+import { UsersModule } from './users/users.module';
+import { RouterModule, Routes } from 'nest-router';
+
+const routes: Routes = [
+  {
+    path: '/users',
+    module: UsersModule,
+  },
+];
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb+srv://channel18:password18@cluster0.xxiab.mongodb.net/orm'),
-    ItemsModule,
+    RouterModule.forRoutes(routes),
+    TypeOrmModule.forRoot(config),
+    UsersModule,
     GraphQLModule.forRoot({
       autoSchemaFile: 'schema.gql',
     }),
